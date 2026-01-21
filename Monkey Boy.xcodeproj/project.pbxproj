@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1D74E7482F213991005EA6AD /* FirebaseAI in Frameworks */ = {isa = PBXBuildFile; productRef = 1D74E7472F213991005EA6AD /* FirebaseAI */; };
+		1D74E74A2F213991005EA6AD /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 1D74E7492F213991005EA6AD /* FirebaseCore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		1D74E6B42F2123D0005EA6AD /* Monkey Boy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Monkey Boy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +28,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D74E74A2F213991005EA6AD /* FirebaseCore in Frameworks */,
+				1D74E7482F213991005EA6AD /* FirebaseAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +72,8 @@
 			);
 			name = "Monkey Boy";
 			packageProductDependencies = (
+				1D74E7472F213991005EA6AD /* FirebaseAI */,
+				1D74E7492F213991005EA6AD /* FirebaseCore */,
 			);
 			productName = "Monkey Boy";
 			productReference = 1D74E6B42F2123D0005EA6AD /* Monkey Boy.app */;
@@ -94,6 +103,9 @@
 			);
 			mainGroup = 1D74E6AB2F2123D0005EA6AD;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1D74E7462F213991005EA6AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1D74E6B52F2123D0005EA6AD /* Products */;
 			projectDirPath = "";
@@ -256,6 +268,9 @@
 				DEVELOPMENT_TEAM = Y7DHCQD6P8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Monkey Boy needs camera access to take photos for transformation";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Monkey Boy needs permission to save your transformed photos";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Monkey Boy needs access to your photos to transform them";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -288,6 +303,9 @@
 				DEVELOPMENT_TEAM = Y7DHCQD6P8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Monkey Boy needs camera access to take photos for transformation";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Monkey Boy needs permission to save your transformed photos";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Monkey Boy needs access to your photos to transform them";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -332,6 +350,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1D74E7462F213991005EA6AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.8.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1D74E7472F213991005EA6AD /* FirebaseAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1D74E7462F213991005EA6AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAI;
+		};
+		1D74E7492F213991005EA6AD /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1D74E7462F213991005EA6AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1D74E6AC2F2123D0005EA6AD /* Project object */;
 }
