@@ -110,7 +110,7 @@ struct ResultView: View {
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
-                        .background(Color.jungleGreen)
+                        .background(Color.red.opacity(0.85))
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                         .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
                     }
