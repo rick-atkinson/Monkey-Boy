@@ -16,22 +16,35 @@ enum TransformationError: LocalizedError {
     case cameraAccessDenied
     case unknown
 
+    private static let funnyApiErrors = [
+        "The monkeys are on a banana break 🍌",
+        "Our monkey artists got distracted by a shiny object",
+        "The jungle server is having a wild day",
+        "Oops! The monkeys dropped their paintbrushes",
+        "The monkey transformation machine ran out of bananas",
+        "A chimp accidentally unplugged the server",
+        "The monkeys are currently in a union meeting",
+        "Our AI monkeys went to get coffee. They'll be back!",
+        "The banana-powered servers need more potassium",
+        "Even monkeys need a vacation sometimes"
+    ]
+
     var errorDescription: String? {
         switch self {
         case .noImageReturned:
-            return "The monkey transformation didn't return an image. Please try again!"
-        case .networkError(let error):
-            return "Network error: \(error.localizedDescription)"
+            return "The monkey artists finished but forgot to show us their work! Classic monkeys."
+        case .networkError:
+            return "Looks like the jungle WiFi is down. Those vines make terrible ethernet cables!"
         case .invalidImage:
-            return "Couldn't process that image. Try a different photo!"
-        case .apiError(let message):
-            return "API error: \(message)"
+            return "Our monkeys are confused by this image. Maybe it's too beautiful for them to handle?"
+        case .apiError:
+            return Self.funnyApiErrors.randomElement() ?? "The monkeys encountered a mysterious error"
         case .photoLibraryAccessDenied:
-            return "Please allow access to your photo library in Settings."
+            return "The monkeys can't see your photos! They need permission to peek."
         case .cameraAccessDenied:
-            return "Please allow camera access in Settings."
+            return "Camera shy? The monkeys need camera access to work their magic!"
         case .unknown:
-            return "Something went wrong. Please try again!"
+            return "Something went bananas! Even our smartest chimp doesn't know what happened."
         }
     }
 
@@ -42,7 +55,7 @@ enum TransformationError: LocalizedError {
         case .networkError:
             return "Check your internet connection and try again."
         case .apiError:
-            return "Please try again in a moment."
+            return "Give it another go - the monkeys are ready to try again!"
         case .photoLibraryAccessDenied, .cameraAccessDenied:
             return "Open Settings > Monkey Boy and enable the required permission."
         }

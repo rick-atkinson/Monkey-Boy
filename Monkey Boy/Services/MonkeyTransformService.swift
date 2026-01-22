@@ -31,7 +31,12 @@ actor MonkeyTransformService {
         // Generate prompt based on face selection
         let prompt = monkeyType.transformPrompt(selectedFaces: selectedFaces, totalFaces: totalFaces)
 
-        let response = try await model.generateContent(processedImage, prompt)
+        let response: GenerateContentResponse
+        do {
+            response = try await model.generateContent(processedImage, prompt)
+        } catch {
+            throw TransformationError.apiError(error.localizedDescription)
+        }
 
         guard let inlineDataPart = response.inlineDataParts.first else {
             throw TransformationError.noImageReturned
