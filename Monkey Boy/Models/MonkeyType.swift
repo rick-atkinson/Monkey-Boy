@@ -68,15 +68,76 @@ enum MonkeyType: String, CaseIterable, Identifiable {
         }
     }
 
-    var transformPrompt: String {
-        """
-        Edit this image to replace every human face with a realistic \(rawValue) face. \
+    /// Generate a transform prompt based on which faces are selected
+    /// - Parameters:
+    ///   - selectedFaces: The faces that should be transformed
+    ///   - totalFaces: The total number of faces detected
+    /// - Returns: A prompt string for the AI model
+    func transformPrompt(selectedFaces: [DetectedFace], totalFaces: Int) -> String {
+        // If no faces detected or all faces selected, use original behavior
+        if totalFaces == 0 || selectedFaces.count == totalFaces {
+            return """
+            Edit this image to replace every human face with a realistic \(rawValue) face. \
+            Keep the exact same photo composition, background, lighting, colors, and clothing. \
+            Only change the faces - seamlessly blend a photorealistic \(rawValue) face onto each person. \
+            The \(rawValue) face should match the person's head angle and expression. \
+            Maintain high image quality and natural lighting. \
+            Do not change anything else in the image.
+            """
+        }
+
+        // If no faces selected, don't transform any
+        if selectedFaces.isEmpty {
+            return """
+            Return this image unchanged. Do not modify any faces or any other part of the image.
+            """
+        }
+
+        // Build position descriptions for selected faces
+        let faceDescriptions = selectedFaces.enumerated().map { index, face in
+            describeFacePosition(face, index: index + 1)
+        }.joined(separator: " ")
+
+        return """
+        Edit this image to replace ONLY specific human faces with realistic \(rawValue) faces. \
+        \(faceDescriptions) \
+        Transform ONLY these described faces into \(rawValue) faces. \
+        Leave all other faces in the image as human - do NOT transform them. \
         Keep the exact same photo composition, background, lighting, colors, and clothing. \
-        Only change the faces - seamlessly blend a photorealistic \(rawValue) face onto each person. \
-        The \(rawValue) face should match the person's head angle and expression. \
+        The \(rawValue) faces should match the original head angles and expressions. \
         Maintain high image quality and natural lighting. \
-        Do not change anything else in the image.
+        Do not change anything else in the image except the specified faces.
         """
+    }
+
+    /// Describe a face's position in human-readable terms
+    private func describeFacePosition(_ face: DetectedFace, index: Int) -> String {
+        let centerX = face.boundingBox.midX
+        let centerY = 1 - face.boundingBox.midY // Flip Y for natural description
+
+        var horizontalPos: String
+        if centerX < 0.33 {
+            horizontalPos = "left"
+        } else if centerX > 0.67 {
+            horizontalPos = "right"
+        } else {
+            horizontalPos = "center"
+        }
+
+        var verticalPos: String
+        if centerY < 0.33 {
+            verticalPos = "top"
+        } else if centerY > 0.67 {
+            verticalPos = "bottom"
+        } else {
+            verticalPos = "middle"
+        }
+
+        let position = verticalPos == "middle" && horizontalPos == "center"
+            ? "center"
+            : "\(verticalPos)-\(horizontalPos)"
+
+        return "Face \(index) is located at the \(position) of the image."
     }
 
     /// Unique background color for each monkey type icon

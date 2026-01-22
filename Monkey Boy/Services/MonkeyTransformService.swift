@@ -19,11 +19,19 @@ actor MonkeyTransformService {
         )
     }
 
-    func transform(image: UIImage, to monkeyType: MonkeyType) async throws -> UIImage {
+    func transform(
+        image: UIImage,
+        to monkeyType: MonkeyType,
+        selectedFaces: [DetectedFace],
+        totalFaces: Int
+    ) async throws -> UIImage {
         // Resize and fix orientation before sending
         let processedImage = image.fixedOrientation().resized(maxDimension: 1024)
 
-        let response = try await model.generateContent(processedImage, monkeyType.transformPrompt)
+        // Generate prompt based on face selection
+        let prompt = monkeyType.transformPrompt(selectedFaces: selectedFaces, totalFaces: totalFaces)
+
+        let response = try await model.generateContent(processedImage, prompt)
 
         guard let inlineDataPart = response.inlineDataParts.first else {
             throw TransformationError.noImageReturned

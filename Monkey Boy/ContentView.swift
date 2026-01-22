@@ -24,6 +24,11 @@ struct ContentView: View {
                     MonkeySelectionView(
                         originalImage: image,
                         selectedMonkey: $viewModel.selectedMonkey,
+                        detectedFaces: viewModel.detectedFaces,
+                        isDetectingFaces: viewModel.isDetectingFaces,
+                        onToggleFace: { id in
+                            viewModel.toggleFaceSelection(id: id)
+                        },
                         onTransform: {
                             Task {
                                 await viewModel.transform()
