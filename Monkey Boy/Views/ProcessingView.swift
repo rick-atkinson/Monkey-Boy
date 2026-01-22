@@ -12,7 +12,8 @@ struct ProcessingView: View {
 
     var body: some View {
         ZStack {
-            Color.jungleGradient
+            // Dark playful green background
+            Color.jungleGreen
                 .ignoresSafeArea()
 
             VStack(spacing: 40) {
@@ -22,7 +23,7 @@ struct ProcessingView: View {
 
                 Text("Transforming into a \(monkeyType.displayName)...")
                     .font(.monkeyBody())
-                    .foregroundStyle(Color.coconutBrown)
+                    .foregroundStyle(.white)
 
                 Spacer()
             }

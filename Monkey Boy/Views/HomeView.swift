@@ -15,24 +15,62 @@ struct HomeView: View {
 
     var body: some View {
         ZStack {
-            Color.jungleGradient
-                .ignoresSafeArea()
+            // Artistic monkey background
+            GeometryReader { geometry in
+                Image("mb")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .scaleEffect(1.8)
+                    .offset(y: geometry.size.height * 0.15)
+                    .blur(radius: 2)
+                    .overlay(
+                        LinearGradient(
+                            colors: [
+                                Color.jungleGreen.opacity(0.7),
+                                Color.jungleGreen.opacity(0.4),
+                                Color.black.opacity(0.6)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .ignoresSafeArea()
+            }
 
-            VStack(spacing: 40) {
+            VStack(spacing: 32) {
                 Spacer()
 
                 // Title Section
                 VStack(spacing: 12) {
-                    Text("🐵")
-                        .font(.system(size: 80))
+                    // Fun artistic title with banana
+                    HStack(spacing: 0) {
+                        Text("M")
+                            .foregroundStyle(Color.bananaYellow)
+                        Text("onkey")
+                            .foregroundStyle(.white)
+                    }
+                    .font(.system(size: 48, weight: .black, design: .rounded))
+                    .shadow(color: .black.opacity(0.4), radius: 6, y: 3)
 
-                    Text("Monkey Boy")
-                        .font(.monkeyTitle())
-                        .foregroundStyle(Color.jungleGreen)
+                    HStack(spacing: 8) {
+                        Text("🍌")
+                            .font(.system(size: 32))
+                            .rotationEffect(.degrees(-15))
+                        Text("Boy")
+                            .font(.system(size: 52, weight: .black, design: .rounded))
+                            .foregroundStyle(Color.bananaYellow)
+                            .shadow(color: .black.opacity(0.4), radius: 6, y: 3)
+                        Text("🍌")
+                            .font(.system(size: 32))
+                            .rotationEffect(.degrees(15))
+                    }
+                    .offset(y: -8)
 
                     Text("Transform anyone into a monkey!")
-                        .font(.monkeyBody())
-                        .foregroundStyle(Color.coconutBrown)
+                        .font(.system(size: 16, weight: .medium, design: .rounded))
+                        .foregroundStyle(.white.opacity(0.95))
+                        .shadow(color: .black.opacity(0.3), radius: 2, y: 1)
+                        .padding(.top, 4)
                 }
 
                 Spacer()
@@ -55,7 +93,7 @@ struct HomeView: View {
                         .padding(.vertical, 16)
                         .background(Color.jungleGreen)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
+                        .shadow(color: .black.opacity(0.3), radius: 4, y: 2)
                     }
                 }
                 .padding(.horizontal, 32)

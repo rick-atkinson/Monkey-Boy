@@ -19,7 +19,8 @@ struct ResultView: View {
 
     var body: some View {
         ZStack {
-            Color.jungleGradient
+            // Dark playful green background
+            Color.jungleGreen
                 .ignoresSafeArea()
 
             VStack(spacing: 24) {
@@ -27,7 +28,7 @@ struct ResultView: View {
                 HStack {
                     Text("Monkey Magic Complete!")
                         .font(.monkeyHeadline())
-                        .foregroundStyle(Color.jungleGreen)
+                        .foregroundStyle(Color.bananaYellow)
                     Spacer()
                 }
                 .padding(.horizontal)
@@ -44,7 +45,8 @@ struct ResultView: View {
                 HStack {
                     Text(monkeyType.emoji)
                     Text(monkeyType.displayName)
-                        .font(.monkeyCaption())
+                        .font(.system(size: 16, weight: .semibold, design: .rounded))
+                        .foregroundStyle(Color.coconutBrown)
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
@@ -118,7 +120,7 @@ struct ResultView: View {
                     Button(action: onStartOver) {
                         Text("Transform Another Photo")
                             .font(.monkeyBody())
-                            .foregroundStyle(Color.coconutBrown)
+                            .foregroundStyle(.white.opacity(0.9))
                             .underline()
                     }
                     .padding(.top, 8)

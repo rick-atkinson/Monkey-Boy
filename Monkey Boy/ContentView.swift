@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var viewModel = TransformationViewModel()
     @State private var showCamera = false
     @State private var selectedImage: UIImage?
+    @State private var showIconGenerator = false
 
     var body: some View {
         Group {
@@ -76,6 +77,43 @@ struct ContentView: View {
                 viewModel.selectImage(image)
                 selectedImage = nil
             }
+        }
+        .sheet(isPresented: $showIconGenerator) {
+            MonkeyIconGenerator()
+        }
+        // Hidden developer gesture: shake device to open icon generator
+        .onShake {
+            showIconGenerator = true
+        }
+    }
+}
+
+// Shake gesture detection
+extension View {
+    func onShake(perform action: @escaping () -> Void) -> some View {
+        self.modifier(ShakeDetector(onShake: action))
+    }
+}
+
+struct ShakeDetector: ViewModifier {
+    let onShake: () -> Void
+
+    func body(content: Content) -> some View {
+        content
+            .onReceive(NotificationCenter.default.publisher(for: UIDevice.deviceDidShakeNotification)) { _ in
+                onShake()
+            }
+    }
+}
+
+extension UIDevice {
+    static let deviceDidShakeNotification = Notification.Name(rawValue: "deviceDidShakeNotification")
+}
+
+extension UIWindow {
+    open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            NotificationCenter.default.post(name: UIDevice.deviceDidShakeNotification, object: nil)
         }
     }
 }
